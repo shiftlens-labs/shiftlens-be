@@ -37,3 +37,17 @@ def test_alert_ingest_creates_context():
 def test_alert_normalization():
     assert normalize_severity("warning") == "high"
     assert normalize_severity("unknown") == "medium"
+
+
+def test_handoff_action_updates_card_status():
+    client = create_app().test_client()
+    response = client.post(
+        "/api/v1/handoff-cards/card-press-07/actions",
+        json={"actor": "pytest", "action": "handoff", "memo": "next shift accepted", "status": "resolved"},
+    )
+    assert response.status_code == 201
+    assert response.json["action"] == "handoff"
+
+    card = client.get("/api/v1/handoff-cards/card-press-07")
+    assert card.status_code == 200
+    assert card.json["status"] == "resolved"
