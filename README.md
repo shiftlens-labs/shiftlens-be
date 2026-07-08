@@ -47,6 +47,6 @@ pytest
 - `GET /api/v1/alerts`
 - `POST /api/v1/alerts/ingest`
 
-## 포트폴리오 포인트
+## 프로젝트 포인트
 
 Flask 모듈 구조로 auth, alerts, handoff, shifts, audit를 분리했습니다. DB 모델은 PostgreSQL/TimescaleDB 확장을 고려한 Tortoise ORM 형태로 남겼습니다.
